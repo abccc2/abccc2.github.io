@@ -69,6 +69,47 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-随笔" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/05/02/%E9%9A%8F%E7%AC%94/" class="article-date">
+  <time class="dt-published" datetime="2024-05-02T14:43:12.000Z" itemprop="datePublished">2024-05-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/05/02/%E9%9A%8F%E7%AC%94/">随笔</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>今天晚上没吃晚饭，天气很好，天津到处都是高楼大厦。</p>
+<p>所以人活着这一生到底是为了什么呢？</p>
+<p>最近在看明朝那些事儿，蛮有趣的</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2024/05/02/%E9%9A%8F%E7%AC%94/" data-id="clvpcvqr70007a0vo1dx92ml9" data-title="随笔" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-bad day" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2024/05/02/bad%20day/" class="article-date">
@@ -153,35 +194,83 @@
     <article id="post-test" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2024/05/01/test/" class="article-date">
-  <time class="dt-published" datetime="2024-05-01T14:52:00.000Z" itemprop="datePublished">2024-05-01</time>
+  <time class="dt-published" datetime="2024-05-01T14:52:27.384Z" itemprop="datePublished">2024-05-01</time>
 </a>
     
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%8D%9A%E5%AE%A2/">-博客</a>
-  </div>
-
   </div>
   <div class="article-inner">
     
     
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/05/01/test/">test</a>
-    </h1>
-  
-
-      </header>
-    
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>以后就在这发文章</p>
+        <p>version: “3”<br />
+services:<br />
+service.rss:<br />
+image: wangqiru/ttrss:latest<br />
+container_name: ttrss<br />
+ports:<br />
+- 181:80<br />
+environment:<br />
+- SELF_URL_PATH=<a target="_blank" rel="noopener" href="http://107.174.180.90:181">http://107.174.180.90:181</a> # please change to your own domain<br />
+- DB_PASS=ttrss # use the same password defined in <code>database.postgres</code><br />
+- PUID=1000<br />
+- PGID=1000<br />
+volumes:<br />
+- feed-icons:/var/www/feed-icons/<br />
+networks:<br />
+- public_access<br />
+- service_only<br />
+- database_only<br />
+stdin_open: true<br />
+tty: true<br />
+restart: always</p>
+<p>service.mercury: # set Mercury Parser API endpoint to <code>service.mercury:3000</code> on TTRSS plugin setting page<br />
+image: wangqiru/mercury-parser-api:latest<br />
+container_name: mercury<br />
+networks:<br />
+- public_access<br />
+- service_only<br />
+restart: always</p>
+<p>service.opencc: # set OpenCC API endpoint to <code>service.opencc:3000</code> on TTRSS plugin setting page<br />
+image: wangqiru/opencc-api-server:latest<br />
+container_name: opencc<br />
+environment:<br />
+- NODE_ENV=production<br />
+networks:<br />
+- service_only<br />
+restart: always</p>
+<p>database.postgres:<br />
+image: postgres:16-alpine<br />
+container_name: postgres<br />
+environment:<br />
+- POSTGRES_PASSWORD=ttrss # feel free to change the password<br />
+volumes:<br />
+- ~/postgres/data/:/var/lib/postgresql/data # persist postgres data to ~/postgres/data/ on the host<br />
+networks:<br />
+- database_only<br />
+restart: always</p>
+<h1 id="utilitywatchtower"><a class="markdownIt-Anchor" href="#utilitywatchtower"></a> utility.watchtower:</h1>
+<h1 id="container_name-watchtower"><a class="markdownIt-Anchor" href="#container_name-watchtower"></a> container_name: watchtower</h1>
+<h1 id="image-containrrrwatchtowerlatest"><a class="markdownIt-Anchor" href="#image-containrrrwatchtowerlatest"></a> image: containrrr/watchtower:latest</h1>
+<h1 id="volumes"><a class="markdownIt-Anchor" href="#volumes"></a> volumes:</h1>
+<h1 id="-varrundockersockvarrundockersock"><a class="markdownIt-Anchor" href="#-varrundockersockvarrundockersock"></a> - /var/run/docker.sock:/var/run/docker.sock</h1>
+<h1 id="environment"><a class="markdownIt-Anchor" href="#environment"></a> environment:</h1>
+<h1 id="-watchtower_cleanuptrue"><a class="markdownIt-Anchor" href="#-watchtower_cleanuptrue"></a> - WATCHTOWER_CLEANUP=true</h1>
+<h1 id="-watchtower_poll_interval86400"><a class="markdownIt-Anchor" href="#-watchtower_poll_interval86400"></a> - WATCHTOWER_POLL_INTERVAL=86400</h1>
+<h1 id="restart-always"><a class="markdownIt-Anchor" href="#restart-always"></a> restart: always</h1>
+<p>volumes:<br />
+feed-icons:</p>
+<p>networks:<br />
+public_access: # Provide the access for ttrss UI<br />
+service_only: # Provide the communication network between services only<br />
+internal: true<br />
+database_only: # Provide the communication between ttrss and database only<br />
+internal: true</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/05/01/test/" data-id="clvnxxl140000vovo57ix3rs8" data-title="test" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/05/01/test/" data-id="clvnxxl140000vovo57ix3rs8" data-title="" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -260,7 +349,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8D%9A%E5%AE%A2/">-博客</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%9B%BE%E7%89%87/">-图片</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/">-学习记录</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BC%91%E7%8F%AD/">休班</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%9A%8F%E6%83%B3/">随想</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%9B%BE%E7%89%87/">-图片</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/">-学习记录</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BC%91%E7%8F%AD/">休班</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%9A%8F%E6%83%B3/">随想</a></li></ul>
     </div>
   </div>
 
@@ -288,6 +377,10 @@
       <ul>
         
           <li>
+            <a href="/2024/05/07/5-7/">5.7</a>
+          </li>
+        
+          <li>
             <a href="/2024/05/06/5-6/">5.6</a>
           </li>
         
@@ -301,10 +394,6 @@
         
           <li>
             <a href="/2024/05/05/good/">good</a>
-          </li>
-        
-          <li>
-            <a href="/2024/05/05/%E7%B4%AF/">累~</a>
           </li>
         
       </ul>
